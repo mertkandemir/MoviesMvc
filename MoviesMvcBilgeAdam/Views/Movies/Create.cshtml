@@ -1,0 +1,56 @@
+﻿@model MoviesMvcBilgeAdam.Entities.Movies 
+@* Movie Name için validasyon mesajını yazdıracağımızdan model tanımı yapmalıyız ki model.Name ya da diğer propertylere ulaşabilmek için model yazmalıyız... *@
+
+@{
+    ViewBag.Title = "Create Movie";
+    //MultiSelectList directors = ViewBag.Directors as MultiSelectList;
+    MultiSelectList directors = (MultiSelectList)ViewBag.Directors;
+    SelectList years = ViewBag.Years as SelectList;
+
+    string message = "";
+    if (ViewData["Message"] != null)
+    {
+        message = ViewData["Message"].ToString();
+    }
+}
+
+<h2>@ViewBag.Title</h2>
+<p class="text-danger">@message</p>
+
+<form action="~/Movies/Create" method="post">
+    <div class="form-group">
+        <label for="tbName">Movie Name</label>
+        <input type="text" class="form-control" id="tbName" name="Name" placeholder="Enter Movie Name"/>
+        @Html.ValidationMessageFor(model => model.Name) <!-- Movie Name için validasyon mesajını göstersin bize -->
+    </div>
+    <div class="form-group">
+        <label for="tbBoxOfficeReturn">Box Office Return</label>
+        <input type="text" class="form-control" id="tbBoxOfficeReturn" name="BoxOfficeReturn" placeholder="Enter Box Office Return"/>
+    </div>
+    <div class="form-group"> 
+        <label for="ddlProductionYear">Production Year</label>  <!-- ComboBox yıllar listesi gelsin istiyoruz... -->
+        <select id="ddlProductionYear"  class="form-control" name="ProductionYear">
+            @*@for (int i = DateTime.Now.Year; i >= 1950; i--)  // 2020 den 1950 ye doğru azalan olacak // Kötü yol burada yapmayı tercih etmeyiz... //
+            {
+                <option value="@i">@i</option> // C# da ki gibi i'nin değeri gelsin diye i'nin başına @ işareti koymalıyız...
+            }*@
+            @foreach (var year in years)
+            {
+                <option value="@year.Value">@year.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="lbDirector">Directors</label>
+        <select multiple class="form-control" id="lbDirector" name="DirectorIds"> <!-- Director listesini almak için multiple yapıyorz-->
+            @foreach (var director in directors)
+            {
+                <option value="@director.Value">@director.Text</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button> <!-- Form içinde type'ı submit olan bir button olmalı -->
+    &nbsp; <!-- Boşluk bırakmak için boşluk karakteri -->
+    <button type="reset" class="btn btn-info">Clear</button>
+</form>
+

@@ -1,0 +1,12 @@
+﻿@model DirectorsDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Title; // const kullanımı için örnek
+}
+
+@Html.Partial("_Details", Model)
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Director.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

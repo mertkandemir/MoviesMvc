@@ -1,0 +1,46 @@
+﻿@using System.Web.UI.WebControls
+@model Movies
+
+@{
+    ViewBag.Title = "Edit Movie";
+    SelectList yearSelectList = ViewBag.Years as SelectList;
+    MultiSelectList directorMultiSelectList = ViewBag.Directors as MultiSelectList;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@*@Html.BeginForm("Edit", "Movies", FormMethod.Post)
+    {
+
+    }
+    @{
+        Html.EndForm();
+    }*@
+
+@using (Html.BeginForm("Edit", "Movies", FormMethod.Post)) // daima bunu kullanacağız
+{
+    @Html.HiddenFor(m=> m.Id) // Id kısmı gözükmesin diye yazılıyor...
+
+    <div class="form-group">
+        @Html.Label("tbName", "Movie Name")
+        @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "Enter Movie Name", id = "tbName" })
+    </div>
+    <div class="form-group">
+        @*@Html.LabelFor(m => m.BoxOfficeReturn)*@
+        @Html.Label("BoxOfficeReturn", "Box Office Return") <!-- Yukarıda ki ile aynı -->
+        @Html.TextBoxFor(m => m.BoxOfficeReturn, new { @class = "form-control", placeholder = "Enter Box Office Return", id = "tbBoxOfficeReturn" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductionYear)
+        @Html.DropDownListFor(m => m.ProductionYear, yearSelectList, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("DirectorIds", "Directors")
+        @Html.ListBox("DirectorIds", directorMultiSelectList, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-success"> Update </button>
+    @*<text>&nbsp;</text>*@
+    @:&nbsp;
+    <button type="reset" class="btn btn-danger"> Clear </button>
+}

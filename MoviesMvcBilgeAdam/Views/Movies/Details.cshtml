@@ -1,0 +1,68 @@
+﻿@*@model Movies*@
+@model MoviesModel
+
+@{
+    ViewBag.Title = "Movie Details";
+
+    //List<MovieDirectors> movieDirectors = Model.MovieDirectors.ToList();
+    //string directorFullNames = "";
+    //foreach (MovieDirectors movieDirector in movieDirectors)
+    //{
+    //    directorFullNames += movieDirector.Directors.Name + " " + movieDirector.Directors.Surname + ", ";
+    //}
+    //directorFullNames = directorFullNames.TrimEnd(' ', ',');
+
+    // Bu tip algoritmaları pek çok view'da yazmamız gerekebilir. Bunu yapabilmek için bu kod bloğunu kopyala yapıştır
+    // ile diğer View'lara yazmamız gerekecektir. Ancak bu algoritmada herhangi bir değişiklik olduğunda bunu kopyaladığımız
+    // her view'da da bu değişikliği yapmamız zorunda kalırız. Bu yüzden view'larda olabildiği kadar az C# kodu yazılmalıdır.
+}
+
+<h2>@ViewBag.Title</h2>
+<hr style="height:8px; border:none; color:blue; background-color: yellow;">
+<div class="row">
+    <div class="col-md-3">
+        @*Name*@ @* Genelde bu yöntem tercih edilmez *@
+        <b>@Html.DisplayNameFor(m => m.Name)</b> @* DisplayNameFor adını getiriyor *@
+    </div>
+    <div class="col-md-9">
+        @Html.DisplayFor(m => m.Name) @* DisplayFor özelliğini getiriyor *@
+    </div>
+</div>
+<hr style="height:3px; border:none; color:blue; background-color: blue;">
+<div class="row">
+    <div class="col-md-3">
+        <b>@Html.DisplayNameFor(m => m.BoxOfficeReturn)</b>
+    </div>
+    <div class="col-md-9">
+        @Html.DisplayFor(m => m.BoxOfficeReturn)
+    </div>
+</div>
+<hr style="height:3px; border:none; color:blue; background-color: blue;">
+<div class="row">
+    <div class="col-md-3">
+        <b>@Html.DisplayNameFor(m => m.ProductionYear)</b>
+    </div>
+    <div class="col-md-9">
+        @Html.DisplayFor(m => m.ProductionYear)
+    </div>
+</div>
+@*<hr class="style-eight" />
+    <div class="row">
+        <div class="col-md-2">
+            <b>@Html.DisplayNameFor(m => m.MovieDirectors)</b>
+        </div>
+        <div class="col-md-10">
+            @directorFullNames
+        </div>
+    </div>*@
+<hr style="height:3px; border:none; color:blue; background-color: blue;">
+<div class="row">
+    <div class="col-md-3">
+        <b>@Html.DisplayNameFor(m => m.DirectorNames)</b>
+    </div>
+    <div class="col-md-9">
+        @Html.DisplayFor(m => m.DirectorNames)
+    </div>
+</div>
+<hr style="height:3px; border:none; color:blue; background-color: blue;">
+@Html.ActionLink("Back to Movie List", "Index", "Movies")

@@ -1,0 +1,77 @@
+﻿@using System.Activities.Expressions
+@model List<MoviesMvcBilgeAdam.Entities.Movies>
+
+<!-- Model bir List of Movies diyoruz yukarıda (using kısmı gibi) -->
+
+<!-- Razor cshtml. dosyalarında C# dilini kullanabilmemizi sağlıyor (at işareti ile kullanılır) -->
+<img src="~/Images/Popcorn_Movies.jpg" class="img img-responsive" />
+
+@{
+    /* Layout = "~/Views/Shared/_MyLayout.cshtml";*/ // ViewStart.cshtml kısmında değiştirildiğinde burada değiştirmeye gerek yok. Ama birden fazla layout'u istediğimiz yerde gösterebiliriz...
+
+    ViewBag.Title = "Movies"; // C# kodları bu şekilde yazılır.
+    string successful = "";
+    if (TempData["Successful"] != null)
+    {
+        successful = TempData["Successful"].ToString();
+    }
+}
+
+@{
+    string title = "Movies"; // Sayfanın başlığı...
+}
+
+<h2>@title</h2>
+
+@*<a href="~/Movies/Create">Add a new Movie</a>*@
+@Html.ActionLink("Add a new Movie", "Create", "Movies") <!-- Html Helper kısmı bizim işimizi kolaylaştırıyor... -->
+
+<br />
+<br />
+<span class="text-success">@successful</span>
+<br />
+<br />
+
+<p> <!-- Paragraf Kısmı -->
+    Number of Movies: @Model.Count 
+</p>
+<h2>Movies List</h2>
+
+<table class="table table-responsive">
+    <tr> <!-- Satır kısmı -->
+        <th> <!-- Sütun Başlıkları (Bolt Yazar th dan kaynaklı) -->
+            Movies Name
+        </th>
+        <th>
+            Production Year
+        </th>
+        <th>
+            Box Office Return
+        </th>
+    </tr>
+
+    @foreach(var movie in Model)
+    {
+        <tr>
+            <td> <!-- Hücre (bolt olmadan yazar) İsimleri -->
+                @movie.Name
+            </td>
+            <td>
+                @movie.ProductionYear
+            </td>
+            <td>
+                @movie.BoxOfficeReturn
+            </td>
+            <td>
+                @*<a href="~/Movies/Details/@movie.Id">Details</a>*@
+                @Html.ActionLink("Details", "Details", "Movies", new { id = movie.Id }, null)
+                &nbsp;|&nbsp;
+                @Html.ActionLink("Edit", "Edit", "Movies", new { id=movie.Id}, null)
+                &nbsp;|&nbsp;
+                @Html.ActionLink("Delete", "Delete", "Movies", new { id = movie.Id }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+
